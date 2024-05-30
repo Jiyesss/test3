@@ -11,6 +11,7 @@
 
 #include "helper.h"
 
+<<<<<<< HEAD
 int is_wsl() {
     FILE *fp;
     char buffer[256];
@@ -37,6 +38,8 @@ void clear_line() {
     fflush(stdout);
 }
 
+=======
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 // Return the number of columns (terminal width)
 int get_cols() {
     struct winsize ws;
@@ -83,17 +86,33 @@ void shell(char *cmd, char *fmt, void *ptr) {
     pclose(fp);
 }
 
+<<<<<<< HEAD
 void read_file(const char *path, void (*hdlr)()) {
     FILE *fp = fopen(path, "r");
     char buffer[BUF_SZ];
 
     if (fp == NULL) {
+=======
+void read_file(const char *path, const char *fmt, void *ptr) {
+    FILE *file = fopen(path, "r");
+    if (file == NULL) {
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
         fprintf(stderr, "Failed to open file %s\n", path);
         exit(EXIT_FAILURE);
     }
 
+<<<<<<< HEAD
     while (fgets(buffer, sizeof(buffer), fp) != NULL)
         hdlr(buffer);
+=======
+    if (fscanf(file, fmt, ptr) != 1) {
+        fprintf(stderr, "Failed to read data from file %s\n", path);
+        fclose(file);
+        exit(EXIT_FAILURE);
+    }
+
+    fclose(file);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 }
 
 char *get_random_str(const char *prefix) {

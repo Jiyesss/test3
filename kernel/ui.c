@@ -5,7 +5,11 @@
 
 #include "helper.h"
 
+<<<<<<< HEAD
 #define PANE_INPUT_Y  7
+=======
+#define PANE_INPUT_Y  7 
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 #define PANE_STATUS_Y 7
 
 int count_panes() {
@@ -23,7 +27,11 @@ void reptyr_proc(pid_t pid) {
         pos = 2;
     else
         pos = count - 1;
+<<<<<<< HEAD
     system_d("tmux split-window -t MiniOS:0.%d 'reptyr %d; echo %d >> %s; sleep 1;'", pos, pid, pid, RQ_DONE_FILE);
+=======
+    system_d("tmux split-window -t MiniOS:0.%d 'reptyr %d; sleep 1;'", pos, pid);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
     system_d("tmux select-pane -t MiniOS:0.%d -T %d", pos+1, pid);
 }
 
@@ -44,5 +52,10 @@ void resize_panes() {
             system_d("tmux resize-pane -t MiniOS:0.%d -y %d", PANE_RIGHT + i, pane_height);
     }
 
+<<<<<<< HEAD
     system_d("tmux select-pane -t MiniOS:0.2");
 }
+=======
+    system_d("tmux select-pane -t MiniOS:0.0");
+}
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0

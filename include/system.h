@@ -13,4 +13,8 @@ void reptyr_proc(pid_t pid);
 void resize_panes();
 int count_panes();
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0

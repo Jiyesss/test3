@@ -16,12 +16,17 @@
     printf("\n"); \
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 // 계산된 CPU 사용량과 메모리 사용량을 저장하기 위한 전역 변수
 static double cpu_usage = 0.0;
 static double mem_usage = 0.0;
 static struct proc_table *ptable;
 static sem_t *ptable_sem;
 
+<<<<<<< HEAD
 // process wait time
 double get_wait_time(int pid){
     char path[256];
@@ -60,6 +65,8 @@ double get_process_time(int pid){
     return total_time;
 }
 
+=======
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 // CPU 사용량 계산 함수
 double calculate_cpu_usage() {
     long double a[4], b[4], loadavg;
@@ -129,17 +136,24 @@ double calculate_memory_usage() {
     return used_memory * 100;
 }
 
+<<<<<<< HEAD
 // 프로세스 상태를 확인하고 실행 중인 프로세스인지 여부를 반환
 int check_proc_running(int pid) {
     char path[40], state;
     long virtualMem;
     double wait_time = get_wait_time(pid);
     double total_time = get_process_time(pid);
+=======
+void print_proc_info(int pid) {
+    char path[40], line[256], state;
+    long virtualMem;
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
     sprintf(path, "/proc/%d/stat", pid);
 
     FILE *fp = fopen(path, "r");
     if (fp == NULL) {
         perror("Error opening process stat file");
+<<<<<<< HEAD
         return 0;
     }
 
@@ -154,6 +168,18 @@ int check_proc_running(int pid) {
     printf(" - PID: %d, State: %c, VmSize: %ld KB\n", pid, state, virtualMem / 1024);
     printf("process time: %f    wait time: %f\n",total_time,wait_time);
     return (state != 'Z');
+=======
+        return;
+    }
+    // /proc/[pid]/stat 파일에서 상태(state)와 가상 메모리 크기(VmSize)를 읽습니다.
+    // 이 예에서는 필드 3(state)과 필드 23(vsize)를 읽습니다.
+    if (fscanf(fp, "%*d %*s %c %*d %*d %*d %*d %*d %*u %*lu %*lu %*lu %*lu %*lu %*lu %*ld %*ld %*ld %*ld %*ld %*ld %*llu %ld", &state, &virtualMem) != 2) {
+        perror("Error reading process stat file");
+    } else {
+        printf(" - PID: %d, State: %c, VmSize: %ld KB\n", pid, state, virtualMem / 1024);
+    }
+    fclose(fp);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 }
 
 // CPU, 메모리 사용량 보여주는 함수
@@ -161,7 +187,10 @@ void stat_hdlr() {
     cpu_usage = calculate_cpu_usage();
     mem_usage = calculate_memory_usage();
     struct task *p;
+<<<<<<< HEAD
     int running_procs = 0; // 현재 실행 중인 프로세스의 개수 초기화
+=======
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 
     system_d("clear");
     printf("CPU : [");
@@ -183,6 +212,7 @@ void stat_hdlr() {
     printf("] %.2f%%\n", mem_usage);
 
     sem_wait(ptable_sem);
+<<<<<<< HEAD
 
     PRINT_RQ("[RQ]: ", p, &(ptable->rq), list);
     list_for_each_entry(p, &(ptable->rq), list) {
@@ -201,6 +231,21 @@ void stat_hdlr() {
     sem_post(ptable_sem);
 
     printf("현재 실행중인 프로세스의 개수: %d\n", running_procs);
+=======
+    PRINT_RQ("[RQ]", p, &(ptable->rq), list);
+    list_for_each_entry(p, &(ptable->rq), list) {
+        print_proc_info(p->pid); // 각 프로세스의 정보를 출력
+    }
+    PRINT_RQ("[END]", p, &(ptable->rq_done), list_done);
+    list_for_each_entry(p, &(ptable->rq_done), list_done) {
+        print_proc_info(p->pid); // 각 프로세스의 정보를 출력
+    }
+
+    for_each_until(p, ptable->proc, ptable->proc_cnt)
+        printf("P%2d: %d, %s\n", p->id, p->pid, task_stat_str[p->state]);
+
+    sem_post(ptable_sem);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 }
 
 void os_status(struct os_args *args) {
@@ -211,4 +256,8 @@ void os_status(struct os_args *args) {
     while (1) {
         sleep(1);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0

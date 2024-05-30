@@ -47,6 +47,7 @@ struct task* proc_register(struct proc_table *ptable, pid_t pid, char *cmd) {
     return next;
 }
 
+<<<<<<< HEAD
 struct task* proc_deregister(struct proc_table *ptable, pid_t pid) {
     struct list_head *rq = &(ptable->rq);
     struct task *p, *target = NULL;
@@ -65,6 +66,8 @@ struct task* proc_deregister(struct proc_table *ptable, pid_t pid) {
     return target;
 }
 
+=======
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 struct task* proc_set_timeout(struct task* p, int total_time) {
     p->time_remain = total_time;
     p->time_total = total_time;
@@ -103,7 +106,11 @@ void sched_next(struct proc_table *ptable, struct task* next, int ts) {
     struct task* p;
 
     list_for_each_entry(p, rq, list) {
+<<<<<<< HEAD
         send_signal(p->pid, SIGSTOP);
+=======
+        send_signal(p->pid, SIGTSTP);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
         if (p != next) {
             p->time_spent += ts;
             p->time_wait += ts;
@@ -119,16 +126,25 @@ void sched_handler(struct proc_table *ptable) {
     struct list_head *rq = &(ptable->rq);
     
     if (curr)
+<<<<<<< HEAD
         if (curr->state != TASK_EXITED)
             list_reinsert_tail(&(curr->list), rq);
         else if (curr->state == TASK_EXITED)
             list_del(&(curr->list));
+=======
+        list_reinsert_tail(&(curr->list), rq);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 
     // check rq is not empty
     if (!list_empty(rq)) {
         curr = list_first_entry(rq, struct task, list);
         sched_next(ptable, curr, CLOCK);
+<<<<<<< HEAD
     } else {
         curr = NULL;
     }
 }
+=======
+    }
+}
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0

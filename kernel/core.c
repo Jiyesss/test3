@@ -70,13 +70,34 @@ void handle_input() {
     if (sem_trywait(input_sem) == -1)
         return;
 
+<<<<<<< HEAD
     /* printf("\nReceived input: %s\n", input_buf); */
+=======
+    printf("Received input: %s\n", input_buf);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
     if (EQ(input_buf, "exit"))
       exit(EXIT_SUCCESS);
     else if (EQ(input_buf, "pi")) {
       handler = calc_pi;
       arg = "calc_pi";
     }
+<<<<<<< HEAD
+=======
+    else if (EQ(input_buf, "rr")) {
+      struct proc_table ptable = {};
+
+      // task_register(&ptable, "P1", 10, 10);
+      // task_register(&ptable, "P2", 5, 5);
+      // task_register(&ptable, "P3", 8, 8);
+      // task_register(&ptable, "P4", 3, 3);
+      // task_register(&ptable, "P5", 6, 6);
+      // task_register(&ptable, "P6", 7, 7);
+      // task_register(&ptable, "P7", 4, 4);
+      // task_register(&ptable, "P8", 9, 9);
+
+      // rr_sched(&ptable);
+    }
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 
     cleanup_disabled = 1;
     spawn_proc(handler, manage_proc, arg);
@@ -85,6 +106,7 @@ void handle_input() {
     resize_panes();
 }
 
+<<<<<<< HEAD
 void check_rq_done(char *line) {
     pid_t pid = atoi(line);
     if (pid != 0)
@@ -118,6 +140,21 @@ void signal_handler(int signum) {
 void os_core(struct os_args *args) {
     parse_args(args);
     unlink(RQ_DONE_FILE);
+=======
+
+void loop_handler(int sig) {
+    static int iter = 0;
+    printf("Sched iteration: %d\n", ++iter);
+
+    // handle pending input
+    handle_input();
+    sched_handler(ptable);
+}
+
+
+void os_core(struct os_args *args) {
+    parse_args(args);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 
     // Initialize ptable
     init_ptable(ptable);

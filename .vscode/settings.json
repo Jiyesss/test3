@@ -13,10 +13,14 @@
         "proc.h": "c",
         "primitive.h": "c",
         "system.h": "c",
+<<<<<<< HEAD
         "helper.h": "c",
         "mman.h": "c",
         "stdlib.h": "c",
         "types.h": "c",
         "string.h": "c"
+=======
+        "helper.h": "c"
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
     }
 }

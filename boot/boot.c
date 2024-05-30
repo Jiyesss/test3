@@ -72,11 +72,19 @@ void init_tui() {
     system_d("tmux set mouse on");
 
     system_d("tmux split-window -h -t MiniOS:0.0");
+<<<<<<< HEAD
     spawn_proc(os_core, register_system, &args);
     system_d("tmux kill-pane -t MiniOS:0.0");
     spawn_proc(os_status, register_system, &args);
     
     spawn_proc(os_input, register_system, &args);
+=======
+    spawn_proc(os_input, register_system, &args);
+    system_d("tmux kill-pane -t MiniOS:0.0");
+    spawn_proc(os_core, register_system, &args);
+    
+    spawn_proc(os_status, register_system, &args);
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
     system_d("tmux kill-pane -t MiniOS:0.2");
     resize_panes();
 
@@ -85,6 +93,7 @@ void init_tui() {
 }
 
 int main() {
+<<<<<<< HEAD
     int ptrace_scope;
     if (!is_wsl()) {
         shell("cat /proc/sys/kernel/yama/ptrace_scope", "%d", &ptrace_scope);
@@ -95,6 +104,18 @@ int main() {
             exit(EXIT_FAILURE);
         }
     }
+=======
+    /*
+    int ptrace_scope;
+    read_file("/proc/sys/kernel/yama/ptrace_scope", "%d", &ptrace_scope);
+
+    if (ptrace_scope != 0) {
+        printf("PTRACE NOT READY. Please run following with sudo.\n");
+        printf("echo 0 > /proc/sys/kernel/yama/ptrace_scope\n");
+        exit(EXIT_FAILURE);
+    }
+    */
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 
     init_global();
     // set common_sem to 1
@@ -107,3 +128,7 @@ int main() {
     system_d("tmux attach");
     return 0;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0

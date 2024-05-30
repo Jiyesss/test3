@@ -41,7 +41,10 @@ struct proc_table {
 };
 
 struct task* proc_register(struct proc_table *ptable, pid_t pid, char *cmd);
+<<<<<<< HEAD
 struct task* proc_deregister(struct proc_table *ptable, pid_t pid);
+=======
+>>>>>>> 6444c1377fd93b81b10eed8ec25d0ab9ff56c1e0
 struct task* proc_set_timeout(struct task* p, int total_time);
 struct task* proc_set_tmux_id(struct task* p, int tmux_id);
 void sched_handler(struct proc_table *ptable);
